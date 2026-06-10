@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TrustChain | Scholarship Eligibility</title>
+  <link rel="stylesheet" href="css/scholarship.css">
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="topbar">
+  <div class="logo">TrustChain</div>
+  <a href="home.html" class="back-link">← Back to Home</a>
+</header>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <h1>Scholarship Eligibility Verification</h1>
+  <p>
+    Securely verify your eligibility using AI-based document analysis
+    and blockchain-verified certificates.
+  </p>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+
+  <!-- STEP 1 -->
+  <div class="step-card">
+    <span class="step-number">1</span>
+    <div class="step-content">
+      <h3>Student Registration / Login</h3>
+      <p>
+        Login to your TrustChain account to start the scholarship
+        verification process.
+      </p>
+<button class="btn-primary" onclick="goLogin()">Login / Register</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-card">
+    <span class="step-number">2</span>
+    <div class="step-content">
+      <h3>Select Certificate Source</h3>
+      <p>
+        Choose how your certificates should be verified.
+      </p>
+
+      <div class="option-box">
+        <button class="option-btn" onclick="uploadDocs()">
+Upload Documents
+</button>
+
+<input type="file" id="certificateFile" style="margin-top:10px;">
+        <button class="option-btn secondary" onclick="connectBlockchain()">
+          Connect Blockchain Records
+        </button>
+      </div>
+
+      <p id="sourceStatus" class="info-text"></p>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-card">
+    <span class="step-number">3</span>
+    <div class="step-content">
+      <h3>Certificate Scanning & Validation</h3>
+      <p>
+        AI scans uploaded certificates or retrieves verified
+        blockchain records to check authenticity and eligibility.
+      </p>
+      <p class="info-text" id="scanStatus">
+        Waiting for document source selection…
+      </p>
+      <button class="btn-primary" onclick="startScan()">
+        Start Verification
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step-card">
+    <span class="step-number">4</span>
+    <div class="step-content">
+      <h3>Eligibility Decision</h3>
+      <p>
+        Based on verification results, eligibility is determined.
+      </p>
+      <p class="final-status">
+        Status: <strong id="finalResult">Pending</strong>
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- RESULT AREA -->
+<section class="result" id="resultSection"></section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  © 2026 TrustChain | Blockchain & AI Scholarship Verification
+</footer>
+
+<!-- SCRIPT -->
+<script>
+  let useBlockchain = false;
+
+  function uploadDocs() {
+
+useBlockchain = false;
+
+document.getElementById("sourceStatus").innerText =
+"Document upload selected.";
+
+document.getElementById("scanStatus").innerText =
+"Ready to scan uploaded certificate.";
+
+}
+
+  function connectBlockchain() {
+    useBlockchain = true;
+    document.getElementById("sourceStatus").innerText =
+      "Blockchain connected. Existing verified certificates will be scanned.";
+  }
+
+  function startScan() {
+
+const file = document.getElementById("certificateFile").files[0];
+
+if(!useBlockchain && !file){
+
+alert("Please upload a certificate first");
+
+return;
+
+}
+
+const scanStatus = document.getElementById("scanStatus");
+const resultText = document.getElementById("finalResult");
+const resultSection = document.getElementById("resultSection");
+
+scanStatus.innerText = "AI is scanning the certificate...";
+
+setTimeout(()=>{
+
+// simple demo rule
+let isEligible = Math.random() > 0.5;
+
+if(isEligible){
+
+resultText.innerText = "Eligible";
+resultText.style.color = "#22c55e";
+
+resultSection.innerHTML = `
+<div class="result-box success">
+✅ Eligible for Scholarship
+</div>
+`;
+
+}
+else{
+
+resultText.innerText = "Not Eligible";
+resultText.style.color = "#ef4444";
+
+resultSection.innerHTML = `
+<div class="result-box danger">
+❌ Not Eligible for Scholarship
+</div>
+`;
+
+}
+
+},2000);
+
+}
+  function goLogin() {
+  window.location.href = "login.html";
+}
+async function connectWallet() {
+
+if(window.ethereum){
+
+await window.ethereum.request({
+method: "eth_requestAccounts"
+});
+
+window.web3 = new Web3(window.ethereum);
+
+const accounts = await web3.eth.getAccounts();
+
+console.log("Connected account:", accounts[0]);
+
+}
+else{
+
+alert("Please install MetaMask");
+
+}
+
+}
+</script>
+
+</body>
+</html>

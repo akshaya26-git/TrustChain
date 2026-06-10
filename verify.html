@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TrustChain | Verify Document</title>
+  <link rel="stylesheet" href="css/verify.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <div class="logo">TrustChain</div>
+  <a href="home.html" class="back-link">← Back to Home</a>
+</header>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <h1>Verify Your Document</h1>
+  <p>Secure document verification using AI and Blockchain technology</p>
+</section>
+
+<!-- VERIFICATION STEPS -->
+<section class="verify-steps">
+
+  <!-- STEP 1 -->
+  <div class="step-wrapper">
+    <div class="step-card">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h3>Upload Document</h3>
+        <span class="subtitle">Select document from your device</span>
+        <p>Supported formats: PDF, JPG, PNG (Max 5MB)</p>
+
+      <input type="file" id="fileInput" hidden accept=".pdf,.png,.jpg,.jpeg">
+<button class="btn-primary" onclick="openFile()">Choose File</button>
+        <p id="statusText" class="status-text"></p>
+      </div>
+    </div>
+    <div class="chain"></div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-wrapper">
+    <div class="step-card">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h3>AI Forgery Detection</h3>
+        <span class="subtitle">Authenticity & tamper analysis</span>
+        <p>
+          Artificial Intelligence analyzes document structure, metadata,
+          and visual patterns to detect forgery or manipulation.
+        </p>
+      </div>
+    </div>
+    <div class="chain"></div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-wrapper">
+    <div class="step-card">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h3>Blockchain Validation</h3>
+        <span class="subtitle">Immutable record creation</span>
+        <p>
+          A cryptographic hash of the document is stored on blockchain
+          with timestamp and issuer details.
+        </p>
+      </div>
+    </div>
+    <div class="chain"></div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step-wrapper">
+    <div class="step-card success">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h3>Verification Result</h3>
+        <span class="subtitle">Final confirmation</span>
+        <p class="final-status">
+          Status: <strong id="finalResult">Waiting</strong>
+        </p>
+        <p id="finalMessage"></p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  © 2026 TrustChain | Blockchain & AI Verification System
+</footer>
+
+<!-- SCRIPT -->
+<script>
+
+function openFile() {
+  document.getElementById("fileInput").click();
+}
+
+document.getElementById("fileInput").addEventListener("change", async function () {
+
+  const file = this.files[0];
+  const status = document.getElementById("statusText");
+  const result = document.getElementById("finalResult");
+  const message = document.getElementById("finalMessage");
+
+  if (!file) return;
+
+  status.innerText = "Uploading document...";
+
+  const formData = new FormData();
+  formData.append("document", file);
+
+  try {
+
+    const response = await fetch("http://localhost:3000/verify", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (data.status === "valid") {
+
+      result.innerText = "Verified";
+      result.style.color = "#22c55e";
+      message.innerText = "Certificate is authentic.";
+
+    } else {
+
+      result.innerText = "Not Verified";
+      result.style.color = "#ef4444";
+      message.innerText = "Forgery detected.";
+
+    }
+
+    status.innerText = "";
+
+  } catch (error) {
+
+    console.error(error);
+    status.innerText = "Server error.";
+
+  }
+
+});
+fetch("http://localhost:3000/verify", {
+    method: "POST",
+    body: formData
+})
+.then(res => res.json())
+.then(data => {
+
+    if(data.status === "valid"){
+
+        document.getElementById("result").innerHTML =
+        "Certificate Verified ✔<br>Blockchain Hash: " + data.blockchainHash;
+
+    } else {
+
+        document.getElementById("result").innerHTML =
+        "Certificate Not Valid ❌";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

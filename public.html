@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TrustChain | Public Document Verification</title>
+  <link rel="stylesheet" href="css/public.css">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="logo">TrustChain</div>
+  <span class="badge">Public Access</span>
+</header>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <h1>Public Document Verification</h1>
+  <p>
+    Employers and organizations can verify document authenticity
+    without login using TrustChain blockchain verification.
+  </p>
+</section>
+
+<!-- VERIFICATION CARD -->
+<section class="verify-section">
+
+  <div class="verify-card">
+
+    <h3>Verify Document</h3>
+
+    <!-- OPTION 1 -->
+    <div class="option">
+      <label>Upload Document</label>
+      <input type="file" accept=".pdf,.jpg,.png">
+    </div>
+
+    <p class="or">OR</p>
+
+    <!-- OPTION 2 -->
+    <div class="option">
+      <label>Enter Verification ID</label>
+      <input type="text" placeholder="Enter Verification ID">
+    </div>
+
+    <button class="verify-btn" onclick="startVerification()">
+      Verify Now
+    </button>
+
+    <p id="status" class="status-text"></p>
+
+  </div>
+
+</section>
+
+<!-- RESULT -->
+<section class="result-section" id="resultSection">
+
+  <div class="result-card success">
+    <h3>✔ Document Verified</h3>
+    <p>This document is authentic and recorded on blockchain.</p>
+
+    <div class="details">
+      <p><strong>Issuer:</strong> Authorized Institution</p>
+      <p><strong>Timestamp:</strong> 12 Jan 2026</p>
+      <p><strong>Blockchain Tx:</strong> 0xA45F9D8...</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  © 2026 TrustChain | Public Blockchain Verification
+</footer>
+
+<script>
+  function startVerification() {
+    const status = document.getElementById("status");
+    const result = document.getElementById("resultSection");
+
+    status.innerText = "Verifying document using blockchain...";
+
+    setTimeout(() => {
+      status.innerText = "";
+      result.style.display = "block";
+    }, 2500);
+  }
+</script>
+
+</body>
+</html>

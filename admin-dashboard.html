@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TrustChain | Admin Dashboard</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#f4f6f9;
+margin:0;
+}
+
+/* HEADER */
+
+.header{
+background:#1e3c72;
+color:white;
+padding:15px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.header h2{
+margin:0;
+}
+
+.logout-btn{
+background:#ff4d4d;
+border:none;
+padding:8px 15px;
+color:white;
+cursor:pointer;
+border-radius:4px;
+}
+
+/* DASHBOARD */
+
+.container{
+width:90%;
+margin:40px auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+th,td{
+padding:12px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+th{
+background:#2a5298;
+color:white;
+}
+
+tr:hover{
+background:#f2f2f2;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+<h2>TrustChain Admin Panel</h2>
+
+<button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+
+<div class="container">
+
+<h3>Registered Users</h3>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Password</th>
+</tr>
+
+</thead>
+
+<tbody id="userTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<script>
+
+/* FETCH USERS FROM DATABASE */
+
+async function loadUsers(){
+
+const response = await fetch("http://localhost:5000/admin/users");
+
+const users = await response.json();
+
+const table = document.getElementById("userTable");
+
+table.innerHTML="";
+
+users.forEach(user => {
+
+table.innerHTML += `
+<tr>
+<td>${user.name}</td>
+<td>${user.email}</td>
+<td>${user.password}</td>
+</tr>
+`;
+
+});
+
+}
+
+loadUsers();
+
+
+/* LOGOUT */
+
+function logout(){
+
+window.location.href="login.html";
+
+}
+
+</script>
+
+
+</body>
+</html>

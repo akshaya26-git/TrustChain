@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TrustChain | Login</title>
+<link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+<a href="home.html" class="back-link">← Back to Home</a>
+</header>
+
+<div class="login-container">
+
+<!-- LEFT : LOGIN FORM -->
+<div class="login-card">
+
+<h2>Welcome Back</h2>
+<p class="subtitle">Login to continue to TrustChain</p>
+
+<form id="loginForm">
+
+<label>Email Address</label>
+<input type="email" id="email" placeholder="Enter your email" required>
+
+<label>Password</label>
+<input type="password" id="password" placeholder="Enter your password" required>
+<button type="submit" class="btn-primary">Login</button>
+
+<p class="extra">
+Don’t have an account? <a href="register.html">Register</a>
+</p>
+
+</form>
+
+</div>
+
+<!-- RIGHT : ILLUSTRATION -->
+<div class="login-illustration">
+<h3>Secure Access</h3>
+<p>
+TrustChain ensures secure authentication using blockchain-powered
+identity verification.
+</p>
+<div class="floating-shape"></div>
+</div>
+
+</div>
+<script>
+
+document.getElementById("loginForm").addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+const response = await fetch("http://localhost:5000/login",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+email,
+password
+})
+
+});
+
+const data = await response.json();
+
+if(data.status === "admin"){
+
+alert("Admin Login Successful");
+
+// go to admin dashboard
+window.location.href="admin-dashboard.html";
+
+}
+else if(data.status === "user"){
+
+alert("Login Successful");
+
+// go to user home page
+window.location.href="home.html";
+
+}
+else{
+
+alert("Invalid Email or Password");
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TrustChain | Insurance Claim</title>
+  <link rel="stylesheet" href="css/insurance.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="topbar">
+  <div class="logo">TrustChain</div>
+  <a href="medical.html" class="back-link">← Back to Medical info</a>
+</header>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <h1>Medical Insurance Claim</h1>
+  <p>
+    Submit and verify your insurance claim securely using
+    AI-based validation and blockchain-backed medical records.
+  </p>
+</section>
+
+<!-- FORMALITIES -->
+<section class="formalities">
+  <h2>Insurance Claim Requirements</h2>
+  <ul>
+    <li>Verified medical diagnosis report</li>
+    <li>Hospital discharge summary</li>
+    <li>Medical bills & receipts</li>
+    <li>Valid insurance policy document</li>
+    <li>Patient identity proof</li>
+  </ul>
+</section>
+
+<!-- CLAIM FORM -->
+<section class="claim-form">
+  <h2>Insurance Claim Form</h2>
+
+  <form>
+
+    <div class="form-group">
+      <label>Patient Full Name</label>
+      <input type="text" placeholder="Enter patient name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Insurance Policy Number</label>
+      <input type="text" placeholder="Enter policy number" required>
+    </div>
+
+    <div class="form-group">
+      <label>Hospital Name</label>
+      <input type="text" placeholder="Enter hospital name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Diagnosis / Treatment</label>
+      <input type="text" placeholder="Enter treatment details" required>
+    </div>
+
+    <div class="form-group">
+      <label>Total Claim Amount (₹)</label>
+      <input type="number" placeholder="Enter claim amount" required>
+    </div>
+
+    <div class="form-group">
+      <label>Upload Medical Documents</label>
+      <input type="file" multiple required>
+      <small>PDF / JPG / PNG · Max 10MB</small>
+    </div>
+
+    <button type="submit" class="btn-primary" onclick="location.href='insurancestatus.html'">
+      Submit Insurance Claim
+    </button>
+
+  </form>
+</section>
+
+<!-- VERIFICATION INFO -->
+<section class="verification-info">
+  <p>
+    🔐 All submitted documents are verified using AI forgery detection
+    and matched with blockchain-stored hospital records before approval.
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  © 2026 TrustChain | Secure Insurance Verification
+</footer>
+
+</body>
+</html>
